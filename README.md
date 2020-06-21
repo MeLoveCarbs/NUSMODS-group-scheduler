@@ -4,15 +4,15 @@
 
 1. Initialize the bot with `/start` and follow the instructions given by the bot.
 
-![Alt Text](https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/gif1.gif)
+<img src = "https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/gif1.gif" height=700/>
 
 2. Simply copy and paste as many nusmods timetable link as there are members on your group and the bot will generate the common timetable.
 
-![Alt Text](https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/gif2.gif)
+<img src = "https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/gif2.gif" height=700/>
 
 3. Wait for a moment and a common timeslot timetable will be generated for your group! Darker shades of red represents more members are unavailable, while lighter shades represents most members are free.
 
-![Alt Text](https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/gif3.gif)
+<img src = "https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/gif3.gif" height=700/>
 
 ## Faq
 
