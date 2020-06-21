@@ -1,0 +1,7 @@
+authToken.txt
+__pycache__
+.vscode
+.Procfile
+requirements.txt
+test misc/
+
