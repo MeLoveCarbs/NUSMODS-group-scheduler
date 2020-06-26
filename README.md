@@ -16,12 +16,12 @@
 
 ## Faq
 
-**Q**: Can I add this bot to a group?
+**Q**: Can I add this bot to a group? <br>
 **A**: Yes, you can add this bot to your group and members can individually add in their nusmods timetable link themselves.
 
-<img src= "https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/botGroupAdd.jpeg" height=300/>
+<img src= "https://github.com/MeLoveCarbs/NUSMODS-group-scheduler/blob/master/readme%20misc/botGroupAdd.jpeg" height=200/>
 
-**Q**: Why are some of the mods not shown on the generated timetable?
+**Q**: Why are some of the mods not shown on the generated timetable?<br>
 **A**: Most of the NUS mods are working perfectly except for some of the mods that doesn't follow the "13 weeks per semester" convention. For eg, **NUR2120**. As such, they require more effort to be collated via the bot and it hasn't been implemented yet. Sorry! D:
 
 **Note**: The telegram bot is being deployed in a free platform and hence, initializing the bot for the first time might be a tad bit slower if the bot hasn't been used for awhile.
