@@ -7,7 +7,7 @@ from datetime import datetime
 from API import *
 
 #global vars
-timetableWidth = [109]
+timetableWidth = 109
 timetableWidthDiff = 117  # half a block ie, 30minutes per widthDiff
 timestampWidthDiff = 234
 timetableHeight = [2, 116]
@@ -33,17 +33,26 @@ def timeToUnit(diffTime, timetableStartTime):
     return unit
 
 
-# startEndTime: ["0900-1200"], timetableStartTime: "0900", day= "Monday"
+# startEndTime: ["0900", "1200"], timetableStartTime: "0900", day= "Monday"
 def timeToPixelConverter(startEndTime, timetableStartTime, day):
     # units of 30mins
     # find difference between timetableStartTime and blocked time
     widthStart = timeToUnit(startEndTime[0], timetableStartTime)
     widthEnd = timeToUnit(startEndTime[1], timetableStartTime)
-    widthStartPixel = timetableWidth[0] + (widthStart*timetableWidthDiff)
-    widthEndPixel = timetableWidth[0] + (widthEnd*timetableWidthDiff)
+    totalBlocks = widthEnd-widthStart
+    widthStartPixel = timetableWidth + (widthStart*timetableWidthDiff)
+
+    widthAccumulate = widthStartPixel
+    prevWidth = widthStartPixel
+    arrBlocks = []
+    for i in range(totalBlocks):
+        widthAccumulate += timetableWidthDiff
+        block = [prevWidth, widthAccumulate]
+        arrBlocks.append(block)
+        prevWidth = widthAccumulate
     heightStartPixel = timetableHeight[0] + dayToDigit[day]*timetableHeightDiff
     heightEndPixel = timetableHeight[1] + dayToDigit[day]*timetableHeightDiff
-    return [[widthStartPixel, widthEndPixel], [heightStartPixel, heightEndPixel]]
+    return [arrBlocks, [heightStartPixel, heightEndPixel]]
 
 
 # earliestAndLatestTime: ["0900", "1800"]
@@ -92,3 +101,8 @@ def timestampDrawer(img, earliestAndLatestTime):
         draw.text((75+timestampWidthDiff*widthIndex, 85), timeString[elem], font=ImageFont.truetype(
             "arial.ttf", 30), fill=(255, 0, 0))
         widthIndex += 1
+
+
+if __name__ == '__main__':
+    data = timeToPixelConverter(["1100", "1500"], "0900", "Monday")
+    print(data[0])

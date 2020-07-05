@@ -141,7 +141,8 @@ def show(update, context):
         member = scheduleAndMemberArr[1]
         tempList = schedule.split('+')
         for elem in tempList:
-            auxList = elem.split(':')  # [0] = startTime-endTime, [1] = day
+            # [0] = startTime-endTime, [1] = day
+            auxList = elem.split(':')
             # [0] = startTime, [1] = endTime
             startEndTime = auxList[0].split('-')
 
@@ -149,30 +150,32 @@ def show(update, context):
             timetableStartTime = earliestAndLatestTime[0]
             pixelList = timeToPixelConverter(
                 startEndTime, timetableStartTime, day)
-            widthPixelList = pixelList[0]
+            widthPixelLists = pixelList[0]
             heightPixelList = pixelList[1]
 
-            for i in range(widthPixelList[0], widthPixelList[1]):
-                for j in range(heightPixelList[0], heightPixelList[1]):
-                    key = str(i)+":" + str(j)
-                    keyWithMember = str(i) + ":"+str(j)+"@"+member
-                    # If pixel belongs to same member, skip. Because it means the user has 2 mods in 1 timeslot
-                    if keyWithMember not in pixelMemberSet:
-                        if key in pixelDict:
-                            pixelDict[key] += 1
-                        else:
-                            pixelDict[key] = 1
-                    pixelMemberSet.add(keyWithMember)
+            for value in widthPixelLists:
+                keyWithMember = str(value[0]) + ":" + str(value[1]) + ":" + \
+                    str(heightPixelList[0]) + ":" + \
+                    str(heightPixelList[1]) + ":" + member
+                key = str(value[0]) + ":" + str(value[1]) + ":" + \
+                    str(heightPixelList[0]) + ":" + str(heightPixelList[1])
+                # if pixel belongs to same member, skip. Because it means the user has 2 mods in 1 timeslot
+                if keyWithMember not in pixelMemberSet:
+                    if key in pixelDict:
+                        pixelDict[key] += 1
+                    else:
+                        pixelDict[key] = 1
+                pixelMemberSet.add(keyWithMember)
 
     for key, value in pixelDict.items():
-        ijArr = key.split(":")
-        i = int(ijArr[0])
-        j = int(ijArr[1])
+        widthAndHeight = key.split(":")
         fraction = round(value/int(MEMBERS), 1)
-        if fraction == 0:
+        if fraction == 0:  # items in this dict is guranteed to have > 1 member not free
             fraction = 0.1
         RGB = RGBshade[fraction]
-        pixels[i, j] = RGB
+        for i in range(int(widthAndHeight[0]), int(widthAndHeight[1])):
+            for j in range(int(widthAndHeight[2]), int(widthAndHeight[3])):
+                pixels[i, j] = RGB
 
     dst = Image.new(
         'RGB', (new_im.width, new_im.height+imageTimestamp.height-60))
@@ -240,6 +243,7 @@ def main():
 
     # Log all errors:
     dp.add_error_handler(error)
+    # updater.start_polling()
     # Start bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
